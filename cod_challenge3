@@ -1,0 +1,43 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+class MainClass {
+  public static void Main (string[] args) {
+    string input = Console.ReadLine(); //input coderbyte
+    Console.WriteLine(SearchingChallenge(input));
+  }
+
+  public static string SearchingChallenge(string str) {
+    var varFiltersCg = str.Split(' ')
+                          .Select(word => new string(word.Where(char.IsLetter).ToArray()))
+                          .ToArray();
+    string varOcg = "-1";
+    int maxRepeats = 0;
+
+    foreach (string word in varFiltersCg) {
+      var charCounts = new Dictionary<char, int>();
+
+      foreach (char c in word.ToLower()) {
+        if (charCounts.ContainsKey(c))
+          charCounts[c]++;
+        else
+          charCounts[c] = 1;
+      }
+      int wordMaxRepeat = charCounts.Values.Max();
+
+      if (wordMaxRepeat > 1 && wordMaxRepeat > maxRepeats) {
+        maxRepeats = wordMaxRepeat;
+        varOcg = word;
+      }
+    }
+
+    string combined = varOcg + "vcwqn8tsoa21";
+    char[] finalChars = combined.ToCharArray();
+    for (int i = 3; i < finalChars.Length; i += 4) {
+      finalChars[i] = '_';
+    }
+
+    return new string(finalChars);
+  }
+}
